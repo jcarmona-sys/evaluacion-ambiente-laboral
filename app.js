@@ -39,6 +39,7 @@
   const sectionRoot = $("#question-sections");
   const categories = cfg.CATEGORIES || [];
   categories.forEach(value => $("#category").add(new Option(value, value)));
+  $("#employee-id").addEventListener("input", event => { event.target.value = event.target.value.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 8); });
 
   function choices(name, options) {
     return options.map(([value, label]) => {
@@ -127,7 +128,7 @@
     const button = $("#submit-button"); button.disabled = true; button.textContent = "Enviando…"; $("#page-loader").classList.remove("hidden");
     try {
       const result = await send(payload());
-      $("#folio").textContent = result.submissionId;
+      $("#folio").textContent = result.folio || result.submissionId;
       $("#survey").classList.add("hidden"); $("#success").classList.remove("hidden"); $("#success").focus();
     } catch (err) { error.textContent = err.message; error.classList.remove("hidden"); }
     finally { button.disabled = false; button.textContent = "Enviar evaluación"; $("#page-loader").classList.add("hidden"); }
@@ -135,3 +136,4 @@
   $("#another").addEventListener("click", () => location.reload());
   updateProgress();
 })();
+ 
