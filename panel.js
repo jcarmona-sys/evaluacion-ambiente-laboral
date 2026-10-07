@@ -17,7 +17,8 @@
     const response = await fetch(url,{cache:"no-store",redirect:"follow"}); const result=await response.json();
     if(!result.ok) throw new Error(result.error||"No se pudieron cargar los resultados."); return result;
   }
-  async function load() { const loader=$("#page-loader");loader.classList.remove("hidden");try{data=await api();populateFilters();render()}finally{loader.classList.add("hidden")} }
+  async function records(){const response=await fetch(`${cfg.API_URL}?view=records&key=${encodeURIComponent(key)}`,{cache:"no-store",redirect:"follow"});const result=await response.json();if(!result.ok)throw new Error(result.error||"No se pudieron cargar los registros.");return result.records||[]}
+  async function load() { const loader=$("#page-loader");loader.classList.remove("hidden");try{data=await api();populateFilters();render();renderRecords(await records())}finally{loader.classList.add("hidden")} }
   function populateFilters(){
     const camp=$("#campaign-filter"), cat=$("#category-filter"), cv=camp.value, tv=cat.value;
     if(!camp.options.length){camp.add(new Option("Todas",""));(data.filters.campaigns||[]).forEach(x=>camp.add(new Option(x,x)));}
@@ -33,6 +34,7 @@
     $("#question-table").innerHTML=(data.questions||[]).slice().sort((a,b)=>a.average-b.average).slice(0,10).map(x=>`<tr><td>${x.questionNumber}</td><td>${esc(questionText[x.questionNumber-1]||x.questionId)}</td><td>${x.average.toFixed(2)}</td><td>${x.effectiveness.toFixed(1)}%</td></tr>`).join("");
     $("#comment-table").innerHTML=(data.comments||[]).map(x=>`<tr><td>${esc(new Date(x.timestamp).toLocaleDateString("es-MX"))}</td><td>${esc(x.category)}</td><td>${esc(x.type)}</td><td style="white-space:normal;min-width:320px">${esc(x.text)}</td></tr>`).join("");
   }
+  function renderRecords(items){$("#records-table").innerHTML=items.map(x=>`<tr><td><code>${esc(x.folio||"—")}</code></td><td>${esc(new Date(x.timestamp).toLocaleString("es-MX"))}</td><td>${esc(x.fullName)}</td><td>${esc(x.employeeId||"Sin ID")}</td><td>${esc(x.category)}</td><td><button class="button danger-button" data-delete="${esc(x.submissionId)}" data-folio="${esc(x.folio||x.submissionId)}">Eliminar</button></td></tr>`).join("")||'<tr><td colspan="6">No hay registros.</td></tr>';document.querySelectorAll("[data-delete]").forEach(btn=>btn.onclick=async()=>{if(!confirm(`¿Eliminar el registro ${btn.dataset.folio}? Esta acción no se puede deshacer.`))return;btn.disabled=true;try{const r=await fetch(cfg.API_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({action:"delete",key,submissionId:btn.dataset.delete})});const result=await r.json();if(!result.ok)throw Error(result.error||"No se pudo eliminar.");await load()}catch(err){btn.disabled=false;const m=$("#records-message");m.textContent=err.message;m.className="message error"}})}
   $("#login-button").onclick=async()=>{const e=$("#login-error");e.classList.add("hidden");key=$("#access-key").value.trim();if(!key)return;try{await load();$("#login").classList.add("hidden");$("#dashboard").classList.remove("hidden")}catch(err){e.textContent=err.message;e.classList.remove("hidden")}};
   $("#refresh").onclick=load; $("#campaign-filter").onchange=load; $("#category-filter").onchange=load;
   $("#logout").onclick=()=>{key="";data=null;$("#access-key").value="";$("#dashboard").classList.add("hidden");$("#login").classList.remove("hidden")};
