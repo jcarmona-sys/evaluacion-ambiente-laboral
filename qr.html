@@ -1,4 +1,60 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>QR · Evaluación del ambiente laboral</title><link rel="icon" type="image/png" href="assets/clock-icon.png?v=20261007-2"><link rel="stylesheet" href="styles.css?v=20261007-2"><style>.poster{max-width:620px;margin:24px auto;text-align:center}.qr{width:min(320px,80vw);height:auto;margin:24px auto;border:12px solid #fff;box-shadow:0 8px 30px rgba(9,39,86,.16)}.url{word-break:break-all;color:var(--blue);font-weight:650}@media print{.topbar,footer{display:none}.poster{box-shadow:none;border:0}.button{display:none}}</style></head>
-<body><header class="topbar"><a class="brand" href="./"><span class="brand-mark">ITC</span><span>In Time Control</span></a><span class="doc-code">Código QR</span></header><main class="shell"><section class="card poster"><p class="eyebrow" style="color:var(--cyan)">Participa</p><h1>Evaluación del ambiente laboral</h1><p>Escanea el código con la cámara de tu teléfono y responde la encuesta.</p><img class="qr" src="qr-encuesta.png" alt="Código QR para abrir la evaluación del ambiente laboral"><p class="url">https://jcarmona-sys.github.io/evaluacion-ambiente-laboral/</p><button class="button primary" onclick="window.print()">Imprimir cartel</button></section></main><footer>ITC-FMT-SI-026-01 · Rev. 00</footer></body></html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#071f4d">
+  <title>Participa · Evaluación del ambiente laboral</title>
+  <link rel="icon" type="image/png" href="assets/clock-icon.png?v=20261007-3">
+  <link rel="stylesheet" href="styles.css?v=20261007-2">
+  <style>
+    .qr-shell{max-width:1040px;padding-top:36px}.qr-cover{position:relative;overflow:hidden;padding:0;border:0;background:#fff;box-shadow:0 28px 80px rgba(7,31,77,.16)}
+    .qr-cover:before{content:"";position:absolute;inset:0 0 auto;height:9px;background:linear-gradient(90deg,#1016a8,#1747c7,#1aa6bd)}
+    .cover-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(330px,.85fr);min-height:640px}
+    .cover-copy{position:relative;padding:58px 54px 46px;background:linear-gradient(145deg,#071f4d 0%,#102f72 66%,#0e526e 100%);color:#fff;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+    .cover-copy:after{content:"";position:absolute;width:380px;height:380px;border:68px solid rgba(255,255,255,.045);border-radius:50%;right:-235px;top:-135px}
+    .cover-logo{position:relative;z-index:1;width:230px;height:auto;filter:brightness(0) invert(1);margin-bottom:48px}
+    .cover-kicker{position:relative;z-index:1;text-transform:uppercase;letter-spacing:.15em;font-size:.76rem;font-weight:800;color:#73d8e7;margin:0 0 12px}
+    .cover-copy h1{position:relative;z-index:1;margin:0;font-size:clamp(2.45rem,5vw,4rem);line-height:1.02;letter-spacing:-.045em;max-width:10ch}
+    .cover-lead{position:relative;z-index:1;margin:22px 0 0;max-width:51ch;color:#e7effb;font-size:1.03rem;line-height:1.7}
+    .cover-points{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:9px;margin-top:28px}.cover-points span{padding:8px 12px;border:1px solid rgba(255,255,255,.2);border-radius:999px;background:rgba(255,255,255,.08);font-size:.8rem;font-weight:700}
+    .qr-side{padding:48px 42px 40px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:radial-gradient(circle at 50% 30%,#fff 0,#f7faff 68%,#eef4fb 100%)}
+    .scan-label{margin:0;color:var(--blue-2);font-size:.78rem;font-weight:850;text-transform:uppercase;letter-spacing:.12em}.qr-side h2{margin:8px 0 5px;color:var(--navy);font-size:1.55rem;letter-spacing:-.025em}.qr-side>p{margin:0;color:var(--muted);font-size:.91rem}
+    .qr-frame{position:relative;margin:24px auto 20px;padding:16px;border-radius:24px;background:#fff;border:1px solid #dbe5f1;box-shadow:0 14px 34px rgba(7,31,77,.12)}.qr-frame:before,.qr-frame:after{content:"";position:absolute;width:30px;height:30px;border-color:var(--cyan)}.qr-frame:before{left:7px;top:7px;border-left:3px solid var(--cyan);border-top:3px solid var(--cyan);border-radius:8px 0 0}.qr-frame:after{right:7px;bottom:7px;border-right:3px solid var(--cyan);border-bottom:3px solid var(--cyan);border-radius:0 0 8px}.qr{display:block;width:min(270px,64vw);height:auto}
+    .steps{width:100%;display:grid;gap:8px;margin:2px 0 20px;text-align:left}.step{display:flex;gap:10px;align-items:center;padding:9px 11px;border-radius:11px;background:#fff;border:1px solid #e0e7f0;color:#3c4a62;font-size:.82rem}.step b{display:grid;place-items:center;flex:0 0 24px;height:24px;border-radius:50%;background:#eaf2ff;color:var(--blue-2);font-size:.74rem}
+    .qr-url{max-width:100%;overflow-wrap:anywhere;margin:0 0 2px!important;color:var(--blue)!important;font-size:.76rem!important;font-weight:650}.cover-actions{display:flex;gap:10px;width:100%;margin-top:13px}.cover-actions .button{flex:1;margin:0;padding:12px 16px;text-decoration:none}.print-button{background:#eaf1fb;color:var(--navy)}
+    .cover-footer{display:flex;justify-content:space-between;gap:18px;padding:15px 24px;border-top:1px solid #e1e8f1;color:var(--muted);font-size:.72rem;background:#fff}.cover-footer b{color:var(--navy)}
+    @media(max-width:780px){.qr-shell{padding-top:16px}.cover-grid{grid-template-columns:1fr}.cover-copy{padding:38px 27px 34px;min-height:430px}.cover-logo{width:190px;margin-bottom:36px}.cover-copy h1{font-size:2.65rem;max-width:12ch}.qr-side{padding:38px 22px}.cover-footer{flex-direction:column;gap:3px;text-align:center}.cover-actions{flex-direction:column}}
+    @media(max-width:420px){.cover-copy{min-height:400px}.cover-copy h1{font-size:2.25rem}.qr-frame{padding:13px}.qr{width:min(248px,72vw)}}
+    @media print{body{background:#fff!important}.topbar,body>footer,.cover-actions{display:none!important}.qr-shell{max-width:none;padding:0}.qr-cover{margin:0;box-shadow:none;border-radius:0}.cover-grid{grid-template-columns:1.05fr .95fr;min-height:247mm}.cover-copy{print-color-adjust:exact;-webkit-print-color-adjust:exact}.qr-side{print-color-adjust:exact;-webkit-print-color-adjust:exact}.cover-footer{position:absolute;left:0;right:0;bottom:0}}
+  </style>
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="./" aria-label="Inicio"><img src="assets/intime-logo.png?v=20261007-3" width="188" height="52" alt="In Time Control"></a><span class="doc-code">Carátula de participación</span></header>
+  <main class="shell qr-shell">
+    <article class="card qr-cover">
+      <div class="cover-grid">
+        <section class="cover-copy">
+          <img class="cover-logo" src="assets/intime-logo.png?v=20261007-3" width="230" height="87" alt="In Time Control">
+          <p class="cover-kicker">Tu opinión cuenta</p>
+          <h1>Evaluación del ambiente laboral</h1>
+          <p class="cover-lead">Ayúdanos a conocer cómo percibes las condiciones físicas, sociales y psicológicas de tu entorno de trabajo. Tus respuestas permitirán identificar fortalezas y acciones de mejora.</p>
+          <div class="cover-points"><span>26 reactivos</span><span>ID opcional</span><span>Respuesta digital</span></div>
+        </section>
+        <section class="qr-side">
+          <p class="scan-label">Participa ahora</p>
+          <h2>Escanea el código QR</h2>
+          <p>Utiliza la cámara de tu teléfono para abrir la encuesta.</p>
+          <div class="qr-frame"><img class="qr" src="qr-encuesta.png?v=20261007-3" width="320" height="320" alt="Código QR para responder la evaluación del ambiente laboral"></div>
+          <div class="steps"><div class="step"><b>1</b><span>Abre la cámara de tu celular.</span></div><div class="step"><b>2</b><span>Enfoca el código y toca el enlace.</span></div><div class="step"><b>3</b><span>Completa y envía tu evaluación.</span></div></div>
+          <p class="qr-url">jcarmona-sys.github.io/evaluacion-ambiente-laboral/</p>
+          <div class="cover-actions"><a class="button primary" href="./">Abrir encuesta</a><button class="button print-button" type="button" onclick="window.print()">Imprimir carátula</button></div>
+        </section>
+      </div>
+      <footer class="cover-footer"><span><b>In Time Control</b> · Sistema de Gestión Integral</span><span>ITC-FMT-SI-026-01 · Rev. 00</span></footer>
+    </article>
+  </main>
+  <footer>Evaluación del ambiente laboral · Junio 2026</footer>
+</body>
+</html>
  
