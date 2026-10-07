@@ -18,6 +18,7 @@
     .cover-copy h1{position:relative;z-index:1;margin:0;font-size:clamp(2.45rem,5vw,4rem);line-height:1.02;letter-spacing:-.045em;max-width:10ch}
     .cover-lead{position:relative;z-index:1;margin:22px 0 0;max-width:51ch;color:#e7effb;font-size:1.03rem;line-height:1.7}
     .cover-points{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:9px;margin-top:28px}.cover-points span{padding:8px 12px;border:1px solid rgba(255,255,255,.2);border-radius:999px;background:rgba(255,255,255,.08);font-size:.8rem;font-weight:700}
+    .formal-note{position:relative;z-index:1;display:grid;gap:4px;margin-top:25px;padding:13px 15px;border-left:3px solid #73d8e7;background:rgba(255,255,255,.08);font-size:.78rem;line-height:1.5;color:#e7effb}.formal-note b{font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;color:#73d8e7}
     .qr-side{padding:48px 42px 40px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:radial-gradient(circle at 50% 30%,#fff 0,#f7faff 68%,#eef4fb 100%)}
     .scan-label{margin:0;color:var(--blue-2);font-size:.78rem;font-weight:850;text-transform:uppercase;letter-spacing:.12em}.qr-side h2{margin:8px 0 5px;color:var(--navy);font-size:1.55rem;letter-spacing:-.025em}.qr-side>p{margin:0;color:var(--muted);font-size:.91rem}
     .qr-frame{position:relative;margin:24px auto 20px;padding:16px;border-radius:24px;background:#fff;border:1px solid #dbe5f1;box-shadow:0 14px 34px rgba(7,31,77,.12)}.qr-frame:before,.qr-frame:after{content:"";position:absolute;width:30px;height:30px;border-color:var(--cyan)}.qr-frame:before{left:7px;top:7px;border-left:3px solid var(--cyan);border-top:3px solid var(--cyan);border-radius:8px 0 0}.qr-frame:after{right:7px;bottom:7px;border-right:3px solid var(--cyan);border-bottom:3px solid var(--cyan);border-radius:0 0 8px}.qr{display:block;width:min(270px,64vw);height:auto}
@@ -30,28 +31,29 @@
   </style>
 </head>
 <body>
-  <header class="topbar"><a class="brand" href="./" aria-label="Inicio"><img src="assets/intime-logo.png?v=20261007-3" width="188" height="52" alt="In Time Control"></a><span class="doc-code">Carátula de participación</span></header>
+  <header class="topbar"><a class="brand" href="./" aria-label="Inicio"><img src="assets/intime-logo.png?v=20261007-3" width="188" height="52" alt="In Time Control"></a><span class="doc-code">ITC-FMT-SI-026-01 <i></i> Rev. 00</span></header>
   <main class="shell qr-shell">
     <article class="card qr-cover">
       <div class="cover-grid">
         <section class="cover-copy">
           <img class="cover-logo" src="assets/intime-logo.png?v=20261007-3" width="230" height="87" alt="In Time Control">
-          <p class="cover-kicker">Tu opinión cuenta</p>
+          <p class="cover-kicker">Documento de aplicación controlada</p>
           <h1>Evaluación del ambiente laboral</h1>
-          <p class="cover-lead">Ayúdanos a conocer cómo percibes las condiciones físicas, sociales y psicológicas de tu entorno de trabajo. Tus respuestas permitirán identificar fortalezas y acciones de mejora.</p>
-          <div class="cover-points"><span>26 reactivos</span><span>ID opcional</span><span>Respuesta digital</span></div>
+          <p class="cover-lead">Instrumento institucional para conocer la percepción del personal sobre las condiciones físicas, sociales y psicológicas del entorno de trabajo. La información se concentra para identificar fortalezas y establecer acciones de mejora.</p>
+          <div class="cover-points"><span>25 reactivos</span><span>Respuesta confidencial</span><span>ID opcional</span></div>
+          <div class="formal-note"><b>Uso interno</b><span>Responde una sola vez y contesta con objetividad. La información será utilizada exclusivamente para fines de evaluación y mejora.</span></div>
         </section>
         <section class="qr-side">
           <p class="scan-label">Participa ahora</p>
           <h2>Escanea el código QR</h2>
-          <p>Utiliza la cámara de tu teléfono para abrir la encuesta.</p>
+          <p>Utiliza la cámara de tu teléfono para abrir el formulario oficial.</p>
           <div class="qr-frame"><img class="qr" src="qr-encuesta.png?v=20261007-3" width="320" height="320" alt="Código QR para responder la evaluación del ambiente laboral"></div>
-          <div class="steps"><div class="step"><b>1</b><span>Abre la cámara de tu celular.</span></div><div class="step"><b>2</b><span>Enfoca el código y toca el enlace.</span></div><div class="step"><b>3</b><span>Completa y envía tu evaluación.</span></div></div>
+          <div class="steps"><div class="step"><b>1</b><span>Abre la cámara de tu celular.</span></div><div class="step"><b>2</b><span>Enfoca el código y toca el enlace.</span></div><div class="step"><b>3</b><span>Captura tus datos y responde los reactivos.</span></div><div class="step"><b>4</b><span>Revisa y envía tu evaluación.</span></div></div>
           <p class="qr-url">jcarmona-sys.github.io/evaluacion-ambiente-laboral/</p>
           <div class="cover-actions"><a class="button primary" href="./">Abrir encuesta</a><button class="button print-button" type="button" onclick="window.print()">Imprimir carátula</button></div>
         </section>
       </div>
-      <footer class="cover-footer"><span><b>In Time Control</b> · Sistema de Gestión Integral</span><span>ITC-FMT-SI-026-01 · Rev. 00</span></footer>
+      <footer class="cover-footer"><span><b>In Time Control</b> · Sistema de Gestión Integral</span><span>ITC-FMT-SI-026-01 · Rev. 00 · Uso interno controlado</span></footer>
     </article>
   </main>
   <footer>Evaluación del ambiente laboral · Junio 2026</footer>
