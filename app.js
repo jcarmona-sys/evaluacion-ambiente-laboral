@@ -41,7 +41,10 @@
   categories.forEach(value => $("#category").add(new Option(value, value)));
 
   function choices(name, options) {
-    return options.map(([value, label]) => `<label class="choice"><input type="radio" name="${name}" value="${value}"><span><b>${value}</b>${label}</span></label>`).join("");
+    return options.map(([value, label]) => {
+      const badge = value === "Parcialmente" ? "P" : value;
+      return `<label class="choice"><input type="radio" name="${name}" value="${value}"><span><b>${badge}</b>${label}</span></label>`;
+    }).join("");
   }
   let qn = 0;
   sections.forEach((section, si) => {
@@ -121,13 +124,13 @@
       error.classList.remove("hidden");
       (missing[0] || $(":invalid"))?.scrollIntoView({ behavior: "smooth", block: "center" }); return;
     }
-    const button = $("#submit-button"); button.disabled = true; button.textContent = "Enviando…";
+    const button = $("#submit-button"); button.disabled = true; button.textContent = "Enviando…"; $("#page-loader").classList.remove("hidden");
     try {
       const result = await send(payload());
       $("#folio").textContent = result.submissionId;
       $("#survey").classList.add("hidden"); $("#success").classList.remove("hidden"); $("#success").focus();
     } catch (err) { error.textContent = err.message; error.classList.remove("hidden"); }
-    finally { button.disabled = false; button.textContent = "Enviar evaluación"; }
+    finally { button.disabled = false; button.textContent = "Enviar evaluación"; $("#page-loader").classList.add("hidden"); }
   });
   $("#another").addEventListener("click", () => location.reload());
   updateProgress();

@@ -5,10 +5,12 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#0b2d68">
   <title>Evaluación del ambiente laboral</title>
+  <link rel="icon" type="image/png" href="assets/clock-icon.png">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="topbar"><a class="brand" href="./" aria-label="Inicio"><span class="brand-mark">ITC</span><span>In Time Control</span></a><span class="doc-code">ITC-FMT-SI-026-01 · Rev. 00</span></header>
+  <div class="page-loader hidden" id="page-loader" role="status" aria-live="polite"><div class="clock-loader" aria-hidden="true"><img src="assets/clock-icon.png" alt=""><i></i></div><span>Guardando tu evaluación…</span></div>
+  <header class="topbar"><a class="brand" href="./" aria-label="Inicio"><img src="assets/intime-logo.png" alt="In Time Control"></a><span class="doc-code">ITC-FMT-SI-026-01 <i></i> Rev. 00</span></header>
   <main class="shell">
     <section class="hero card">
       <p class="eyebrow">Evaluación interna</p>
@@ -21,9 +23,9 @@
       <section class="card" id="person-section">
         <div class="section-heading"><span>01</span><div><h2>Datos del personal</h2><p>Los campos marcados con * son obligatorios.</p></div></div>
         <div class="form-grid">
-          <label>ID <small>(opcional)</small><input id="employee-id" name="employeeId" type="text" autocomplete="off" maxlength="40"></label>
-          <label>Categoría *<select id="category" name="category" required><option value="">Selecciona una opción</option></select></label>
-          <label class="wide">Nombre completo *<input id="full-name" name="fullName" required maxlength="160" autocomplete="name" placeholder="Apellido paterno + Apellido materno + Nombre(s)"><small>Escribe primero los apellidos y después el nombre.</small></label>
+          <label><span class="field-label">ID <small>(opcional)</small></span><input id="employee-id" name="employeeId" type="text" autocomplete="off" maxlength="40" placeholder="Número o clave de empleado"></label>
+          <label><span class="field-label">Categoría <em>*</em></span><select id="category" name="category" required><option value="">Selecciona una opción</option></select></label>
+          <label class="wide name-field"><span class="field-label">Nombre completo <em>*</em></span><span class="field-help">Apellido paterno + Apellido materno + Nombre(s)</span><input id="full-name" name="fullName" required maxlength="160" autocomplete="name" placeholder="Ej. López Hernández Andrea"><small>Escribe primero los apellidos y después el nombre.</small></label>
         </div>
       </section>
 

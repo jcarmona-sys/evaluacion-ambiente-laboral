@@ -11,7 +11,7 @@
     const response = await fetch(url,{cache:"no-store",redirect:"follow"}); const result=await response.json();
     if(!result.ok) throw new Error(result.error||"No se pudieron cargar los resultados."); return result;
   }
-  async function load() { data=await api(); populateFilters(); render(); }
+  async function load() { const loader=$("#page-loader");loader.classList.remove("hidden");try{data=await api();populateFilters();render()}finally{loader.classList.add("hidden")} }
   function populateFilters(){
     const camp=$("#campaign-filter"), cat=$("#category-filter"), cv=camp.value, tv=cat.value;
     if(!camp.options.length){camp.add(new Option("Todas",""));(data.filters.campaigns||[]).forEach(x=>camp.add(new Option(x,x)));}
