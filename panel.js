@@ -70,3 +70,4 @@
   function safeExport(fn){try{fn()}catch(err){alert(err.message||"No fue posible generar el archivo.")}}
   $("#export-csv").onclick=()=>safeExport(exportCsv); $("#export-xlsx").onclick=()=>safeExport(exportExcel); $("#export-pdf").onclick=()=>safeExport(exportPdf);
 })();
+ 
