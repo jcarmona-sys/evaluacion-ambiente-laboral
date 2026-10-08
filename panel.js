@@ -54,7 +54,7 @@
     (data.sections||[]).forEach(x=>rows.push(["Secciones",labels[x.sectionId]||x.sectionId,"Efectividad",pct(x.effectiveness)]));
     (data.categories||[]).forEach(x=>rows.push(["Categorías",x.category,`${x.submissions} respuesta(s)`,pct(x.effectiveness)]));
     (data.questions||[]).forEach(x=>rows.push(["Reactivos",`#${x.questionNumber} ${questionText[x.questionNumber-1]||x.questionId}`,`Promedio ${Number(x.average).toFixed(2)}`,pct(x.effectiveness)]));
-    (data.comments||[]).forEach(x=>rows.push(["Comentarios",`${x.fullName}${x.employeeId?` · ${x.employeeId}`:""}`,`${x.category} · ${x.type} · ${x.requiresFollowup?"Requiere seguimiento":"No requiere seguimiento"}`,`${x.text} (${x.followupType||""})`]));
+    (data.comments||[]).forEach(x=>rows.push(["Comentarios",`${x.fullName}${x.employeeId?` · ${x.employeeId}`:""}`,`${x.category} · ${commentTypes[x.type]||x.type} · ${x.requiresFollowup?"Requiere seguimiento":"No requiere seguimiento"}`,`${x.text} (${x.followupType||""})`]));
     const csv=rows.map(r=>r.map(v=>`"${String(v??"").replaceAll('"','""')}"`).join(",")).join("\r\n"); download("\ufeff"+csv,"text/csv;charset=utf-8",filename("csv"));
   }
   function exportExcel(){
@@ -65,7 +65,7 @@
       ["Secciones",XLSX.utils.json_to_sheet((data.sections||[]).map(x=>({Sección:labels[x.sectionId]||x.sectionId,Efectividad:pct(x.effectiveness)})))],
       ["Categorías",XLSX.utils.json_to_sheet((data.categories||[]).map(x=>({Categoría:x.category,Respuestas:x.submissions,Efectividad:pct(x.effectiveness),Evaluación:classification(x.effectiveness)[0]})))],
       ["Reactivos",XLSX.utils.json_to_sheet((data.questions||[]).map(x=>({Número:x.questionNumber,Reactivo:questionText[x.questionNumber-1]||x.questionId,Promedio:Number(x.average).toFixed(2),Efectividad:pct(x.effectiveness)})))],
-      ["Comentarios",XLSX.utils.json_to_sheet((data.comments||[]).map(x=>({Fecha:new Date(x.timestamp).toLocaleDateString("es-MX"),Personal:x.fullName,ID:x.employeeId||"",Categoría:x.category,Tipo:x.type,Comentario:x.text,Seguimiento:x.requiresFollowup?"Sí requiere":"No requiere",Acción:x.followupType||""})))]];
+      ["Comentarios",XLSX.utils.json_to_sheet((data.comments||[]).map(x=>({Fecha:new Date(x.timestamp).toLocaleDateString("es-MX"),Personal:x.fullName,ID:x.employeeId||"",Categoría:x.category,Tipo:commentTypes[x.type]||x.type,Comentario:x.text,Seguimiento:x.requiresFollowup?"Sí requiere":"No requiere",Acción:x.followupType||""})))]];
     sheets.forEach(([name,ws])=>{ws["!cols"]=[{wch:22},{wch:54},{wch:18},{wch:18}];XLSX.utils.book_append_sheet(wb,ws,name)}); XLSX.writeFile(wb,filename("xlsx"),{compression:true});
   }
   function exportPdf(){
