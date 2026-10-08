@@ -32,7 +32,7 @@
     $("#section-bars").innerHTML=(data.sections||[]).map(x=>{const c=classification(x.effectiveness);return `<div class="bar-row"><b>${esc(labels[x.sectionId]||x.sectionId)}</b><div class="bar-track"><div class="bar-fill" style="width:${Math.max(0,Math.min(100,x.effectiveness))}%"></div></div><span class="status ${c[1]}">${x.effectiveness.toFixed(1)}%</span></div>`}).join("")||"<p>Sin datos.</p>";
     $("#category-table").innerHTML=(data.categories||[]).map(x=>{const c=classification(x.effectiveness);return `<tr><td>${esc(x.category)}</td><td>${x.submissions}</td><td>${x.effectiveness.toFixed(1)}%</td><td><span class="status ${c[1]}">${c[0]}</span></td></tr>`}).join("");
     $("#question-table").innerHTML=(data.questions||[]).slice().sort((a,b)=>a.average-b.average).slice(0,10).map(x=>`<tr><td>${x.questionNumber}</td><td>${esc(questionText[x.questionNumber-1]||x.questionId)}</td><td>${x.average.toFixed(2)}</td><td>${x.effectiveness.toFixed(1)}%</td></tr>`).join("");
-    $("#comment-table").innerHTML=(data.comments||[]).map(x=>`<tr><td>${esc(new Date(x.timestamp).toLocaleDateString("es-MX"))}</td><td>${esc(x.category)}</td><td>${esc(x.type)}</td><td style="white-space:normal;min-width:320px">${esc(x.text)}</td></tr>`).join("");
+    $("#comment-table").innerHTML=(data.comments||[]).map(x=>`<tr><td>${esc(new Date(x.timestamp).toLocaleDateString("es-MX"))}</td><td><b>${esc(x.fullName||"Sin nombre")}</b></td><td>${esc(x.employeeId||"—")}</td><td>${esc(x.category)}</td><td>${esc(x.type)}</td><td style="white-space:normal;min-width:320px">${esc(x.text)}</td><td style="white-space:normal;min-width:190px"><span class="status ${x.requiresFollowup?"regular":"excellent"}">${x.requiresFollowup?"Sí requiere":"No requiere"}</span><small class="followup-table-note">${esc(x.followupType||"")}</small></td></tr>`).join("")||'<tr><td colspan="7">No hay comentarios registrados.</td></tr>';
   }
   function options(values,current){return values.map(v=>`<option${v===current?" selected":""}>${esc(v)}</option>`).join("")}
   function renderFollowups(items){
@@ -51,7 +51,7 @@
     (data.sections||[]).forEach(x=>rows.push(["Secciones",labels[x.sectionId]||x.sectionId,"Efectividad",pct(x.effectiveness)]));
     (data.categories||[]).forEach(x=>rows.push(["Categorías",x.category,`${x.submissions} respuesta(s)`,pct(x.effectiveness)]));
     (data.questions||[]).forEach(x=>rows.push(["Reactivos",`#${x.questionNumber} ${questionText[x.questionNumber-1]||x.questionId}`,`Promedio ${Number(x.average).toFixed(2)}`,pct(x.effectiveness)]));
-    (data.comments||[]).forEach(x=>rows.push(["Comentarios",new Date(x.timestamp).toLocaleDateString("es-MX"),`${x.category} · ${x.type}`,x.text]));
+    (data.comments||[]).forEach(x=>rows.push(["Comentarios",`${x.fullName}${x.employeeId?` · ${x.employeeId}`:""}`,`${x.category} · ${x.type} · ${x.requiresFollowup?"Requiere seguimiento":"No requiere seguimiento"}`,`${x.text} (${x.followupType||""})`]));
     const csv=rows.map(r=>r.map(v=>`"${String(v??"").replaceAll('"','""')}"`).join(",")).join("\r\n"); download("\ufeff"+csv,"text/csv;charset=utf-8",filename("csv"));
   }
   function exportExcel(){
@@ -62,7 +62,7 @@
       ["Secciones",XLSX.utils.json_to_sheet((data.sections||[]).map(x=>({Sección:labels[x.sectionId]||x.sectionId,Efectividad:pct(x.effectiveness)})))],
       ["Categorías",XLSX.utils.json_to_sheet((data.categories||[]).map(x=>({Categoría:x.category,Respuestas:x.submissions,Efectividad:pct(x.effectiveness),Evaluación:classification(x.effectiveness)[0]})))],
       ["Reactivos",XLSX.utils.json_to_sheet((data.questions||[]).map(x=>({Número:x.questionNumber,Reactivo:questionText[x.questionNumber-1]||x.questionId,Promedio:Number(x.average).toFixed(2),Efectividad:pct(x.effectiveness)})))],
-      ["Comentarios",XLSX.utils.json_to_sheet((data.comments||[]).map(x=>({Fecha:new Date(x.timestamp).toLocaleDateString("es-MX"),Categoría:x.category,Tipo:x.type,Comentario:x.text})))]];
+      ["Comentarios",XLSX.utils.json_to_sheet((data.comments||[]).map(x=>({Fecha:new Date(x.timestamp).toLocaleDateString("es-MX"),Personal:x.fullName,ID:x.employeeId||"",Categoría:x.category,Tipo:x.type,Comentario:x.text,Seguimiento:x.requiresFollowup?"Sí requiere":"No requiere",Acción:x.followupType||""})))]];
     sheets.forEach(([name,ws])=>{ws["!cols"]=[{wch:22},{wch:54},{wch:18},{wch:18}];XLSX.utils.book_append_sheet(wb,ws,name)}); XLSX.writeFile(wb,filename("xlsx"),{compression:true});
   }
   function exportPdf(){
@@ -73,7 +73,7 @@
     table("Resultado por sección",["Sección","Efectividad"],(data.sections||[]).map(x=>[labels[x.sectionId]||x.sectionId,pct(x.effectiveness)]));
     table("Resultados por categoría",["Categoría","Respuestas","Efectividad","Evaluación"],(data.categories||[]).map(x=>[x.category,x.submissions,pct(x.effectiveness),classification(x.effectiveness)[0]]));
     table("Resultados por reactivo",["#","Reactivo","Promedio","Efectividad"],(data.questions||[]).map(x=>[x.questionNumber,questionText[x.questionNumber-1]||x.questionId,Number(x.average).toFixed(2),pct(x.effectiveness)]),{1:{cellWidth:112}});
-    if((data.comments||[]).length)table("Comentarios y propuestas",["Fecha","Categoría","Tipo","Comentario"],data.comments.map(x=>[new Date(x.timestamp).toLocaleDateString("es-MX"),x.category,x.type,x.text]),{3:{cellWidth:88}});
+    if((data.comments||[]).length)table("Comentarios y propuestas",["Fecha","Personal / ID","Categoría","Comentario","Seguimiento"],data.comments.map(x=>[new Date(x.timestamp).toLocaleDateString("es-MX"),`${x.fullName}${x.employeeId?` / ${x.employeeId}`:""}`,x.category,x.text,`${x.requiresFollowup?"Sí requiere":"No requiere"}: ${x.followupType||""}`]),{1:{cellWidth:40},3:{cellWidth:65},4:{cellWidth:40}});
     const pages=doc.getNumberOfPages();for(let i=1;i<=pages;i++){doc.setPage(i);doc.setFontSize(8);doc.setTextColor(99,112,137);doc.text(`In Time Control · Página ${i} de ${pages}`,105,291,{align:"center"})} doc.save(filename("pdf"));
   }
   function safeExport(fn){try{fn()}catch(err){alert(err.message||"No fue posible generar el archivo.")}}
