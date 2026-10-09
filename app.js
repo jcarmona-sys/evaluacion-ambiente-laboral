@@ -38,7 +38,9 @@
   const $$ = (s, root = document) => [...root.querySelectorAll(s)];
   const sectionRoot = $("#question-sections");
   const categories = cfg.CATEGORIES || [];
+  const projects = cfg.PROJECTS || [];
   categories.forEach(value => $("#category").add(new Option(value, value)));
+  projects.forEach(project => $("#project").add(new Option(`${project.code} - ${project.name}`, project.code)));
   $("#employee-id").addEventListener("input", event => { event.target.value = event.target.value.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 8); });
 
   function choices(name, options) {
@@ -98,7 +100,7 @@
     }));
     responses.push({ questionId: "GENERAL", sectionId: "S4", questionNumber: generalNumber, score: Number($('input[name="general"]:checked').value) });
     return {
-      action: "submit", token: cfg.WRITE_TOKEN, campaign: cfg.CAMPAIGN, organization: cfg.ORGANIZATION,
+      action: "submit", token: cfg.WRITE_TOKEN, campaign: cfg.CAMPAIGN, organization: cfg.ORGANIZATION, projectCode: $("#project").value,
       person: { employeeId: $("#employee-id").value.trim(), fullName: $("#full-name").value.trim(), category: $("#category").value },
       responses,
       notes: $$("[data-section-note]").map(x => ({ sectionId: `S${x.dataset.sectionNote}`, type: "section", text: x.value.trim() })).filter(x => x.text),
@@ -111,7 +113,8 @@
   async function send(data) {
     if (!cfg.API_URL) throw new Error("El formulario aún no está conectado a la base de datos.");
     const response = await fetch(cfg.API_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(data), redirect: "follow" });
-    const result = await response.json();
+    const text = await response.text();
+    let result; try { result = JSON.parse(text); } catch (_) { throw new Error("El servicio de datos no respondió correctamente. Actualiza la página e inténtalo de nuevo."); }
     if (!result.ok) throw new Error(result.error || "No fue posible guardar la respuesta.");
     return result;
   }

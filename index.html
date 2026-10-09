@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0b2d68">
   <title>Evaluación del ambiente laboral</title>
   <link rel="icon" type="image/png" href="assets/clock-icon.png?v=20261007-2">
-  <link rel="stylesheet" href="styles.css?v=20261007-4">
+  <link rel="stylesheet" href="styles.css?v=20261009-1">
 </head>
 <body>
   <div class="page-loader hidden" id="page-loader" role="status" aria-live="polite"><div class="clock-loader" aria-hidden="true"><img src="assets/clock-icon.png?v=20261007-2" width="88" height="88" alt=""><i></i></div><span>Guardando tu evaluación…</span></div>
@@ -24,6 +24,7 @@
         <div class="section-heading"><span>01</span><div><h2>Datos del personal</h2><p>Los campos marcados con * son obligatorios.</p></div></div>
         <div class="form-grid">
           <label><span class="field-label">ID <small>(opcional)</small></span><span class="field-help">Formato: ITC seguido de cinco dígitos.</span><input id="employee-id" name="employeeId" type="text" autocomplete="off" maxlength="8" pattern="ITC[0-9]{5}" title="Escribe el ID con el formato ITC06190" placeholder="Ej. ITC06190"></label>
+          <label><span class="field-label">Proyecto <em>*</em></span><span class="field-help">Selecciona el proyecto al que perteneces.</span><select id="project" name="project" required><option value="">Selecciona un proyecto</option></select></label>
           <label><span class="field-label">Categoría <em>*</em></span><select id="category" name="category" required><option value="">Selecciona una opción</option></select></label>
           <label class="wide name-field"><span class="field-label">Nombre completo <em>*</em></span><span class="field-help">Apellido paterno + Apellido materno + Nombre(s)</span><input id="full-name" name="fullName" required maxlength="160" autocomplete="name" placeholder="Ej. López Hernández Andrea"><small>Escribe primero los apellidos y después el nombre.</small></label>
         </div>
@@ -53,8 +54,8 @@
     <section class="card success hidden" id="success" tabindex="-1"><div class="success-icon">✓</div><h2>Respuesta registrada</h2><p>Gracias por participar. Conserva tu folio:</p><p class="folio-code" id="folio"></p><button class="button secondary" id="another" type="button">Registrar otra respuesta</button></section>
   </main>
   <footer>In Time Control · Evaluación del ambiente laboral · Junio 2026</footer>
-  <script src="config.js?v=20261007-2"></script>
-  <script src="app.js?v=20261007-4"></script>
+  <script src="config.js?v=20261009-1"></script>
+  <script src="app.js?v=20261009-1"></script>
 </body>
 </html>
  

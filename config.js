@@ -3,5 +3,10 @@ window.APP_CONFIG = {
   WRITE_TOKEN: "itc-amb-w-vAqNYf9ZSUZbkxej",
   CAMPAIGN: "2026",
   ORGANIZATION: "In Time Control",
+  PROJECTS: [
+    { code: "P2502", name: "Vikingo 2.0 (Zitácuaro)" },
+    { code: "P2601", name: "Mayakan (Reforma, Chiapas)" },
+    { code: "G1301", name: "Oficina Matriz" }
+  ],
   CATEGORIES: ["Administrativo", "Operativo", "Supervisión", "Gerencia", "Otro"]
 };
